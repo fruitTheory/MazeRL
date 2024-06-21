@@ -16,7 +16,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(SFML)
 
-add_executable(main src/main.cpp src/algorithm.cpp)
+add_executable(main src/main.cpp src/app.cpp src/maze.cpp)
 
 target_include_directories(main PRIVATE src)
 
