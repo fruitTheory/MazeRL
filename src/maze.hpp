@@ -14,6 +14,8 @@ class ShapeBasics{
   int WINDOW_SIZE = 400; int MULT = 2;
   const int block_size = std::sqrt(WINDOW_SIZE) * MULT; // 40
   const int block_size_div = WINDOW_SIZE / block_size; // 10
+
+  private:
   const float outline_thickness{2.5};
   const sf::Color outline_color{200,200,200};
   const sf::Color default_color{20,20,20};
@@ -21,7 +23,6 @@ class ShapeBasics{
 
 class Environment: public ShapeBasics{
   public:
-
   const array<array<int, 10>, 10> map = {{
     0,0,0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,0,0,
@@ -48,14 +49,12 @@ class Environment: public ShapeBasics{
 
 class Agent: public ShapeBasics{
   public:
-
   sf::Vector2i agent_pos{5,9};
 
   void create_agent(sf::RenderWindow &window);
   void update_agent(sf::RenderWindow &window);
 
   private:
-
   const sf::Color agent_color{250,10,10}; // Red
 
 };

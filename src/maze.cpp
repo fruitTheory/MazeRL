@@ -4,7 +4,6 @@
 #include <array>
 #include <iostream>
 
-
 using std::array;
 using namespace sf;
 
@@ -54,14 +53,12 @@ void Agent::create_agent(RenderWindow &window){
   square.setFillColor(agent_color);
   square.setPosition(screen_position.x, screen_position.y);
   window.draw(square);
-
 }
 
 void Agent::update_agent(RenderWindow &window){
   agent_pos.y -= 1;
   RectangleShape square = create_square();
   Vector2i screen_position = convert_position(agent_pos, square);
-
   square.setFillColor(agent_color);
   square.setPosition(screen_position.x, screen_position.y);
   window.draw(square);
