@@ -1,7 +1,17 @@
 #include "algorithm.hpp"
 #include "utility.hpp"
+#include <vector>
 
-array<array<double, 10>, 10> MLearning::QValueMap{0};
+using std::vector;
+using std::array;
+
+array<array<double, ARR_SIZE>, ARR_SIZE> MLearning::QValueMap{0};
+
+void MLearning::InitVec(){
+  for(auto &outer: ActionMap){
+    std::fill(outer.begin(), outer.end(), ChoiceVector);
+  }
+}
 
 int MLearning::RandomNumber(){
 
@@ -33,12 +43,19 @@ void MLearning::CheckReward(){
     default:
       break;
   }
+}
 
+void MLearning::ChooseAction(){
+  int row = Agent::agent_pos.y;
+  int col = Agent::agent_pos.x;
+  vector<double> map_actions = ActionMap[row][col];
+  map_actions[1] = 1;
+  PrintVectorMap(ActionMap);
 }
 
 void MLearning::Temporary(){
-  for(auto row : MLearning::QValueMap){
-    for(double n : row){
+  for(const auto &row : MLearning::QValueMap){
+    for(const double &n : row){
       std::cout << n << " " ;
     } std::cout << std::endl;
   }

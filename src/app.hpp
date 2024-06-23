@@ -23,5 +23,4 @@ class App{
   Agent agent;
   MLearning learn;
   int iter{1};
-  
 };

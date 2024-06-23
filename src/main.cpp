@@ -9,8 +9,8 @@ int main()
 {
   std::cout << "Hello" << std::endl;
 
-  MLearning::CheckReward();
-  MLearning::Temporary();
+  MLearning learn;
+  learn.ChooseAction();
   
   App app;
   app.Run();

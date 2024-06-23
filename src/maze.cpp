@@ -8,8 +8,9 @@ using std::array;
 using namespace sf;
 using namespace WindowBasics;
 
-sf::Vector2i Agent::agent_pos{5,8};
-const array<array<int, 10>, 10> Environment::map = 
+const sf::Vector2i Agent::agent_init_position{5,8};
+sf::Vector2i Agent::agent_pos = Agent::agent_init_position;
+const array<array<int, ARR_SIZE>, ARR_SIZE> Environment::map = 
 {{
   0,0,0,0,0,0,0,1,1,1,
   0,0,0,0,0,0,0,1,2,1,
@@ -29,7 +30,6 @@ RectangleShape ShapeBasics::create_square(){
   square.setOutlineColor(outline_color);
   square.setOutlineThickness(outline_thickness);
   square.setFillColor(default_color);
-
   return square;
 }
 
@@ -58,7 +58,7 @@ void Environment::draw_map(RenderWindow &window){
 
 void Agent::create_agent(RenderWindow &window){
   RectangleShape square = create_square();
-  Vector2i screen_position = convert_position(agent_pos, square);
+  Vector2i screen_position = convert_position(agent_init_position, square);
   square.setFillColor(agent_color);
   square.setPosition(screen_position.x, screen_position.y);
   window.draw(square);
