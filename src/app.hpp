@@ -2,11 +2,15 @@
 
 #include "SFML/Graphics.hpp"
 #include "maze.hpp"
+#include "algorithm.hpp"
+#include "utility.hpp"
+
+using namespace WindowBasics;
 
 class App{
 
   public:
-  App(): window(sf::VideoMode(400, 400), "SFML window") {}
+  App(): window(sf::VideoMode(WINDOW_SIZE, WINDOW_SIZE), "SFML window") {}
 
   void Run();
   void Event_Handler();
@@ -17,6 +21,7 @@ class App{
   sf::RenderWindow window;
   Environment env;
   Agent agent;
+  MLearning learn;
   int iter{1};
   
 };

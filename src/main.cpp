@@ -1,16 +1,17 @@
-#include "SFML/Graphics.hpp"
+#include "utility.hpp"
 #include "maze.hpp"
 #include "app.hpp"
-#include "utility.hpp"
+#include "algorithm.hpp"
 #include <iostream>
-#include <cmath>
-#include <array>
 
 
 int main()
 {
   std::cout << "Hello" << std::endl;
 
+  MLearning::CheckReward();
+  MLearning::Temporary();
+  
   App app;
   app.Run();
 

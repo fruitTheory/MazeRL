@@ -1,9 +1,11 @@
 #pragma once
 
 #include "SFML/Graphics.hpp"
+#include "utility.hpp"
 #include <array>
 
 using std::array;
+using namespace WindowBasics;
 
 class ShapeBasics{
   public:
@@ -11,9 +13,9 @@ class ShapeBasics{
   sf::Vector2i convert_position(const sf::Vector2i &array_pos, const sf::RectangleShape &shape);
 
   protected:
-  int WINDOW_SIZE = 400; int MULT = 2;
   const int block_size = std::sqrt(WINDOW_SIZE) * MULT; // 40
   const int block_size_div = WINDOW_SIZE / block_size; // 10
+  const static int ARR_SIZE{10};
 
   private:
   const float outline_thickness{2.5};
@@ -23,33 +25,21 @@ class ShapeBasics{
 
 class Environment: public ShapeBasics{
   public:
-  const array<array<int, 10>, 10> map = {{
-    0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,1,1,1,1,
-    0,0,0,0,0,0,1,1,0,1,
-    0,0,0,0,0,0,1,0,0,1,
-    0,0,0,0,0,1,1,0,0,1,
-    0,0,0,1,1,1,0,0,1,0,
-    0,0,0,1,0,0,0,0,1,0,
-    0,0,0,1,0,0,0,1,1,0,
-    0,0,0,1,0,0,1,1,0,0,
-  }};
+  const static array<array<int, ARR_SIZE>, ARR_SIZE> map;
   void create_map();
-  void create_goal(sf::RenderWindow &window);
   void draw_map(sf::RenderWindow &window);
 
   private:
   const sf::Color ground_color{0,128,250}; //  Blue
   const sf::Color wall_color{0,10,250}; // Dark Blue
   const sf::Color goal_color{10,250,10}; // Green
-  const sf::Vector2i goal_pos{8,3}; // goal position
+  const sf::Vector2i goal_pos{8,1}; // goal position
 
 };
 
 class Agent: public ShapeBasics{
   public:
-  sf::Vector2i agent_pos{5,9};
+  static sf::Vector2i agent_pos;
 
   void create_agent(sf::RenderWindow &window);
   void update_agent(sf::RenderWindow &window);

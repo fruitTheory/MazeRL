@@ -5,8 +5,8 @@ void App::Run(){
   while(window.isOpen()){
     Event_Handler();
     Render();
-    if(iter % 1000 == 0 && iter < 3000){ agent.update_agent(window);}
-    if(iter == 10000){ break; }
+    // if(iter % 1000 == 0 && iter < 3000){ agent.update_agent(window);}
+    // if(iter == 10000){ break; }
     ++iter;
   }
 }
@@ -23,7 +23,6 @@ void App::Render(){
 
   env.draw_map(window);
   agent.create_agent(window);
-  env.create_goal(window);
 
   window.display();
 }

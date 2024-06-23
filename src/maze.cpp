@@ -6,7 +6,24 @@
 
 using std::array;
 using namespace sf;
+using namespace WindowBasics;
 
+sf::Vector2i Agent::agent_pos{5,8};
+const array<array<int, 10>, 10> Environment::map = 
+{{
+  0,0,0,0,0,0,0,1,1,1,
+  0,0,0,0,0,0,0,1,2,1,
+  0,0,0,0,0,0,1,1,0,1,
+  0,0,0,0,0,0,1,0,0,1,
+  0,0,0,0,0,1,1,0,0,1,
+  0,0,0,1,1,1,0,0,0,1,
+  0,0,0,1,0,0,0,0,1,1,
+  0,0,0,1,0,0,0,0,1,0,
+  0,0,0,1,0,0,1,1,1,0,
+  0,0,0,1,1,1,1,0,0,0,
+}};
+
+// Create and return basic square shape
 RectangleShape ShapeBasics::create_square(){
   RectangleShape square(Vector2f(block_size, block_size));
   square.setOutlineColor(outline_color);
@@ -24,15 +41,6 @@ Vector2i ShapeBasics::convert_position(const Vector2i &array_pos, const Rectangl
   return screen_position;
 }
 
-void Environment::create_goal(RenderWindow &window){
-  RectangleShape square = create_square();
-  Vector2i screen_position = convert_position(goal_pos, square);
-  square.setFillColor(goal_color);
-  square.setPosition(screen_position.x, screen_position.y);
-  window.draw(square);
-  
-}
-
 void Environment::draw_map(RenderWindow &window){
   RectangleShape square = create_square();
   Vector2f shape_size  = square.getSize();
@@ -41,6 +49,7 @@ void Environment::draw_map(RenderWindow &window){
     for(int x = 0; x < block_size_div; x++){
       if(map[y][x] == 0){square.setFillColor(ground_color);}
       if(map[y][x] == 1){square.setFillColor(wall_color);}
+      if(map[y][x] == 2){square.setFillColor(goal_color);}
       square.setPosition(shape_size.x*x, shape_size.y*y);
       window.draw(square);
     }
