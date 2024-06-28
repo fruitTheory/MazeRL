@@ -1,7 +1,7 @@
 #pragma once
 
 #include "SFML/Graphics.hpp"
-#include "maze.hpp"
+#include "world.hpp"
 #include "algorithm.hpp"
 #include "utility.hpp"
 

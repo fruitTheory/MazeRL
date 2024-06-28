@@ -1,4 +1,4 @@
-#include "maze.hpp"
+#include "world.hpp"
 #include "utility.hpp"
 #include "SFML/Graphics.hpp"
 #include <array>

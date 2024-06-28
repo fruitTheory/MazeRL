@@ -1,6 +1,6 @@
 #pragma once
 
-#include "maze.hpp"
+#include "world.hpp"
 #include "utility.hpp"
 #include <array>
 #include <vector>

@@ -1,5 +1,5 @@
 #include "utility.hpp"
-#include "maze.hpp"
+#include "world.hpp"
 #include "app.hpp"
 #include "algorithm.hpp"
 #include <iostream>
