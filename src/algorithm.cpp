@@ -5,7 +5,7 @@
 using std::vector;
 using std::array;
 
-array<array<double, ARR_SIZE>, ARR_SIZE> MLearning::QValueMap{0};
+array<array<double, ShapeBasics::WindowDivision>, ShapeBasics::WindowDivision> MLearning::QValueMap{0};
 
 void MLearning::InitVec(){
   for(auto &outer: ActionMap){
@@ -50,7 +50,9 @@ void MLearning::ChooseAction(){
   int col = Agent::agent_pos.x;
   vector<double> map_actions = ActionMap[row][col];
   map_actions[1] = 1;
-  PrintVectorMap(ActionMap);
+  Utils::PrintVectorMap(ActionMap);
+  float t = Utils::sqrt_cexpr(400);
+  print(t);
 }
 
 void MLearning::Temporary(){

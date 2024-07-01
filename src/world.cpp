@@ -10,7 +10,7 @@ using namespace WindowBasics;
 
 const sf::Vector2i Agent::agent_init_position{5,8};
 sf::Vector2i Agent::agent_pos = Agent::agent_init_position;
-const array<array<int, ARR_SIZE>, ARR_SIZE> Environment::map = 
+const array<array<int, ShapeBasics::WindowDivision>, ShapeBasics::WindowDivision> Environment::map = 
 {{
   0,0,0,0,0,0,0,1,1,1,
   0,0,0,0,0,0,0,1,2,1,
@@ -45,8 +45,8 @@ void Environment::draw_map(RenderWindow &window){
   RectangleShape square = create_square();
   Vector2f shape_size  = square.getSize();
 
-  for(int y = 0; y < block_size_div; y++){
-    for(int x = 0; x < block_size_div; x++){
+  for(int y = 0; y < WindowDivision; y++){
+    for(int x = 0; x < WindowDivision; x++){
       if(map[y][x] == 0){square.setFillColor(ground_color);}
       if(map[y][x] == 1){square.setFillColor(wall_color);}
       if(map[y][x] == 2){square.setFillColor(goal_color);}

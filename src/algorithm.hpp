@@ -1,7 +1,7 @@
 #pragma once
 
-#include "world.hpp"
 #include "utility.hpp"
+#include "world.hpp"
 #include <array>
 #include <vector>
 
@@ -27,8 +27,8 @@ class MLearning: public Agent{
   void ChooseAction();
 
   protected:
-  static array<array<double, ARR_SIZE>, ARR_SIZE> QValueMap;
-  array<array<vector<double>, ARR_SIZE>, ARR_SIZE> ActionMap;
+  static array<array<double, ShapeBasics::WindowDivision>, ShapeBasics::WindowDivision> QValueMap;
+  array<array<vector<double>, ShapeBasics::WindowDivision>, ShapeBasics::WindowDivision> ActionMap;
 
   private:
   static const int range_max{4};
