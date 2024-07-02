@@ -24,15 +24,6 @@ const array<array<int, ShapeBasics::WindowDivision>, ShapeBasics::WindowDivision
   0,0,0,1,1,1,1,0,0,0,
 }};
 
-// Create and return basic square shape
-RectangleShape ShapeBasics::create_square(){
-  RectangleShape square(Vector2f(block_size, block_size));
-  square.setOutlineColor(outline_color);
-  square.setOutlineThickness(outline_thickness);
-  square.setFillColor(default_color);
-  return square;
-}
-
 // Take array mapped position convert to screen based position
 Vector2i ShapeBasics::convert_position(const Vector2i &array_pos, const RectangleShape &shape){
   Vector2i screen_position;
@@ -42,7 +33,6 @@ Vector2i ShapeBasics::convert_position(const Vector2i &array_pos, const Rectangl
 }
 
 void Environment::draw_map(RenderWindow &window){
-  RectangleShape square = create_square();
   Vector2f shape_size  = square.getSize();
 
   for(int y = 0; y < WindowDivision; y++){
@@ -57,7 +47,6 @@ void Environment::draw_map(RenderWindow &window){
 }
 
 void Agent::create_agent(RenderWindow &window){
-  RectangleShape square = create_square();
   Vector2i screen_position = convert_position(agent_init_position, square);
   square.setFillColor(agent_color);
   square.setPosition(screen_position.x, screen_position.y);
@@ -65,7 +54,6 @@ void Agent::create_agent(RenderWindow &window){
 }
 
 void Agent::draw_agent(RenderWindow &window){
-  RectangleShape square = create_square();
   Vector2i screen_position = convert_position(agent_pos, square);
   square.setFillColor(agent_color);
   square.setPosition(screen_position.x, screen_position.y);

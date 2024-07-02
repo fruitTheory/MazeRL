@@ -9,10 +9,16 @@ using namespace WindowBasics;
 
 class ShapeBasics{
   public:
-  sf::RectangleShape create_square();
+  ShapeBasics(): square(sf::Vector2f(block_size, block_size))
+  {
+    square.setOutlineColor(outline_color);
+    square.setOutlineThickness(outline_thickness);
+    square.setFillColor(default_color);
+  }
   sf::Vector2i convert_position(const sf::Vector2i &array_pos, const sf::RectangleShape &shape);
 
   protected:
+  sf::RectangleShape square;
   static constexpr int block_size = Utils::sqrt_cexpr(WINDOW_SIZE) * MULT; // 40
   const sf::Color userRed{250,10,10};
   const sf::Color userGreen{10,250,10};
@@ -55,6 +61,5 @@ class Agent: public ShapeBasics{
 
   private:
   const sf::Color agent_color{userRed};
-
 
 };
