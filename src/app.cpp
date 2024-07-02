@@ -5,9 +5,7 @@ void App::Run(){
   while(window.isOpen()){
     Event_Handler();
     Render();
-    // if(iter % 1000 == 0 && iter < 3000){ agent.update_agent(window);}
-    // if(iter == 10000){ break; }
-    ++iter;
+
   }
 }
 
@@ -22,7 +20,11 @@ void App::Render(){
   window.clear();
 
   env.draw_map(window);
-  agent.create_agent(window);
+  learn.ChooseAction();
+  agent.draw_agent(window);
 
   window.display();
+
+  sf::sleep(sf::seconds(1));
+
 }

@@ -7,32 +7,46 @@
 
 using std::array;
 using std::vector;
+using std::srand;
 
 class MLearning: public Agent{
   public:
 
-  MLearning(): ChoiceVector(4, 0.0)
+  MLearning():
+  ChoiceVector(4, 0.0)
   {
       InitVec();
+      srand(static_cast<unsigned int>(std::time(0)));
   }
 
-  enum class ActionType {LEFT, UP, RIGHT, DOWN};
+  enum ActionType {LEFT, UP, RIGHT, DOWN};
+  enum CaseType {DEFAULT, WALL, GOAL};
   void InitVec();
-  static int RandomNumber();
-  static void Temporary();
+  static ActionType RandomAction();
+  void PrintRewardMap();
+  void PrintChoiceMap();
   void Reward_Positive();
   void Reward_Negative();
-  static void CheckReward();
+  static void GiveReward();
   void StoreState();
+  void ResetState();
   void ChooseAction();
+  void DoAction(ActionType type);
 
   protected:
-  static array<array<double, ShapeBasics::WindowDivision>, ShapeBasics::WindowDivision> QValueMap;
-  array<array<vector<double>, ShapeBasics::WindowDivision>, ShapeBasics::WindowDivision> ActionMap;
+  static array<array<double, WindowDivision>, WindowDivision> RewardMap;
+  array<array<vector<double>, WindowDivision>, WindowDivision> QChoiceMap;
 
   private:
   static const int range_max{4};
   const vector<double> ChoiceVector;
+  double alpha = 0.1;
+  double gamma = 0.99;
+  double epsilon = 0.2;
+  int episodes = 100;
 
 };
 
+// Alpha - Learn rate - How much old info overrides new info
+// Gamma - Discount - Importance of future rewards
+// Epsilon - Exploration - old choices vs new choices 

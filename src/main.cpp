@@ -8,9 +8,6 @@
 int main()
 {
   std::cout << "Hello" << std::endl;
-
-  MLearning learn;
-  learn.ChooseAction();
   
   App app;
   app.Run();

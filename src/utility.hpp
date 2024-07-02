@@ -7,14 +7,15 @@
 using std::vector;
 using std::array;
 
+#define print(value) std::cout << value << "\n"
+#define endline std::cout << "\n"
+#define forloop(value) for(int x = 0; x < value; x++)
+
 namespace WindowBasics{
     constexpr int WINDOW_SIZE{400}; 
     constexpr int MULT{2}; 
     constexpr int ARR_SIZE{10};
 }
-
-#define print(value) std::cout << value << "\n"
-#define endline std::cout << "\n"
 
 constexpr float sqrt_recursive(float initial, float current, float previous){
     return current == previous ? current : 

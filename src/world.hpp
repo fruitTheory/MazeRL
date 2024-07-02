@@ -47,7 +47,7 @@ class Agent: public ShapeBasics{
   public:
   static sf::Vector2i agent_pos;
   void create_agent(sf::RenderWindow &window);
-  void update_agent(sf::RenderWindow &window);
+  void draw_agent(sf::RenderWindow &window);
   void reset_agent(sf::RenderWindow &window);
 
   protected:

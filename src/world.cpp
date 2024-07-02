@@ -64,8 +64,7 @@ void Agent::create_agent(RenderWindow &window){
   window.draw(square);
 }
 
-void Agent::update_agent(RenderWindow &window){
-  agent_pos.y -= 1;
+void Agent::draw_agent(RenderWindow &window){
   RectangleShape square = create_square();
   Vector2i screen_position = convert_position(agent_pos, square);
   square.setFillColor(agent_color);
