@@ -17,6 +17,11 @@ MLearning::ActionType MLearning::RandomAction(){
   return static_cast<ActionType>(rand() % range_max);
 }
 
+void MLearning::Start(){
+  ActionType Action = ChooseAction();
+  DoAction(Action);
+}
+
 void MLearning::GiveReward(){
 
   int row = Agent::agent_pos.y;
@@ -43,33 +48,25 @@ void MLearning::GiveReward(){
   }
 }
 
-void MLearning::ChooseAction(){
+MLearning::ActionType MLearning::ChooseAction(){
   ActionType Action;
   double ExploreChance = rand()/(double)RAND_MAX;
   int row = Agent::agent_pos.y;
   int col = Agent::agent_pos.x;
   vector<double> map_QValues = QValueMap[row][col];
+  // map_QValues[3] = 1;
 
   // Explore vs Exploit
   if(ExploreChance < epsilon){
     Action = RandomAction();
-    print(Action);
-    DoAction(Action);
   }
   else{
-    // map_QValues[3] = 1;
     auto maximum_value_iter = std::max_element(map_QValues.begin(), map_QValues.end());
     int maximum_value = *maximum_value_iter;
     int iterator = std::distance(map_QValues.begin(), maximum_value_iter);
     Action = static_cast<ActionType>(iterator);
-    DoAction(Action);
   }
-}
-
-void MLearning::ex_chex(int value){
-    if (value > 9){
-      throw std::out_of_range("Index is out of range");
-    }
+  return Action;
 }
 
 void MLearning::DoAction(ActionType type){

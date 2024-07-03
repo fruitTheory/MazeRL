@@ -21,30 +21,29 @@ class MLearning: public Agent{
 
   enum ActionType {LEFT, UP, RIGHT, DOWN};
   enum CaseType {DEFAULT, WALL, GOAL};
-  void InitVec();
-  static ActionType RandomAction();
-  void PrintRewardMap();
-  void PrintChoiceMap();
-  void Reward_Positive();
-  void Reward_Negative();
-  static void GiveReward();
+  
+  void Start();
   void StoreState();
   void ResetState();
-  void ChooseAction();
+  static void GiveReward();
+  void PrintRewardMap();
+  void PrintChoiceMap();
+  ActionType ChooseAction();
   void DoAction(ActionType type);
 
   protected:
+  static ActionType RandomAction();
   static array<array<double, WindowDivision>, WindowDivision> RewardMap;
   array<array<vector<double>, WindowDivision>, WindowDivision> QValueMap;
 
   private:
+  void InitVec();
   static const int range_max{4};
   const vector<double> QValueVector;
   double alpha = 0.1;
   double gamma = 0.99;
   double epsilon = 0.1;
   int episodes = 100;
-  void ex_chex(int value);
 
 };
 
