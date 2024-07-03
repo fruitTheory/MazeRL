@@ -20,8 +20,8 @@ void App::Render(){
   window.clear();
 
   env.draw_map(window);
-  learn.Start();
   agent.draw_agent(window);
+  learn.Start();
 
   window.display();
 

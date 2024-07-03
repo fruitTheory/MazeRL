@@ -38,7 +38,6 @@ class ShapeBasics{
 class Environment: public ShapeBasics{
   public:
   const static array<array<int, WindowDivision>, WindowDivision> map;
-  void create_map();
   void draw_map(sf::RenderWindow &window);
 
   private:
@@ -52,9 +51,7 @@ class Environment: public ShapeBasics{
 class Agent: public ShapeBasics{
   public:
   static sf::Vector2i agent_pos;
-  void create_agent(sf::RenderWindow &window);
   void draw_agent(sf::RenderWindow &window);
-  void reset_agent(sf::RenderWindow &window);
 
   protected:
   const static sf::Vector2i agent_init_position;

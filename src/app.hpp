@@ -12,7 +12,7 @@ class App{
   public:
   App(): window(sf::VideoMode(WINDOW_SIZE, WINDOW_SIZE), "SFML window")
   {
-    agent.create_agent(window);
+
   }
 
   void Run();
@@ -25,5 +25,4 @@ class App{
   Environment env;
   Agent agent;
   MLearning learn;
-  int iter{1};
 };
