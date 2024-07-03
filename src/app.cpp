@@ -20,8 +20,7 @@ void App::Render(){
   window.clear();
 
   env.draw_map(window);
-  MLearning::ActionType Action = learn.ChooseAction();
-  learn.DoAction(Action);
+  learn.Start();
   agent.draw_agent(window);
 
   window.display();

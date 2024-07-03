@@ -20,6 +20,7 @@ MLearning::ActionType MLearning::RandomAction(){
 void MLearning::Start(){
   ActionType Action = ChooseAction();
   DoAction(Action);
+  GiveReward();
 }
 
 void MLearning::GiveReward(){
@@ -30,15 +31,18 @@ void MLearning::GiveReward(){
   
   switch(map_value){
     case CaseType::DEFAULT:{
+      print(RewardMap[row][col] + -0.1);
       RewardMap[row][col] += -0.1;
       break;
     }
     case CaseType::WALL:{
+      print(RewardMap[row][col] + -1);
       RewardMap[row][col] += -1;
       // Reset state
       break;
     }
     case CaseType::GOAL:{
+      print(RewardMap[row][col] + 5);
       RewardMap[row][col] += 5;
       break;
     }
@@ -70,8 +74,6 @@ MLearning::ActionType MLearning::ChooseAction(){
 }
 
 void MLearning::DoAction(ActionType type){
-
-  sf::Vector2i temporary = Agent::agent_pos;
   
   switch(type){
     case ActionType::LEFT:{
