@@ -13,7 +13,7 @@ class MLearning: public Agent{
   public:
 
   MLearning():
-  ChoiceVector(4, 0.0)
+  QValueVector(4, 0.0)
   {
       InitVec();
       srand(static_cast<unsigned int>(std::time(0)));
@@ -35,15 +35,16 @@ class MLearning: public Agent{
 
   protected:
   static array<array<double, WindowDivision>, WindowDivision> RewardMap;
-  array<array<vector<double>, WindowDivision>, WindowDivision> QChoiceMap;
+  array<array<vector<double>, WindowDivision>, WindowDivision> QValueMap;
 
   private:
   static const int range_max{4};
-  const vector<double> ChoiceVector;
+  const vector<double> QValueVector;
   double alpha = 0.1;
   double gamma = 0.99;
-  double epsilon = 0.2;
+  double epsilon = 0.1;
   int episodes = 100;
+  void ex_chex(int value);
 
 };
 
