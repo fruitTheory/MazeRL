@@ -13,37 +13,47 @@ class MLearning: public Agent{
   public:
 
   MLearning():
-  QValueVector(4, 0.0)
+  QValueVector(4, 0.0),
+  PreviousState(agent_init_position),
+  MaxActions{4},
+  Reward{0},
+  MaxQValue{0},
+  alpha{0.1},
+  gamma{0.99},
+  epsilon{0.9},
+  episodes{100}
   {
       InitVec();
       srand(static_cast<unsigned int>(std::time(0)));
   }
 
   enum ActionType {LEFT, UP, RIGHT, DOWN};
-  enum CaseType {DEFAULT, WALL, GOAL};
+  enum RewardType {DEFAULT, WALL, GOAL};
   
   void Start();
-  void StoreState();
   void ResetState();
-  static void GiveReward();
-  void PrintRewardMap();
-  void PrintChoiceMap();
+  double GetReward();
+  void UpdateQValue();
   ActionType ChooseAction();
   void DoAction(ActionType type);
+  void PrintQValueMap();
+  void CalculateQValue();
 
   protected:
-  static ActionType RandomAction();
-  static array<array<double, WindowDivision>, WindowDivision> RewardMap;
+  ActionType RandomAction();
   array<array<vector<double>, WindowDivision>, WindowDivision> QValueMap;
 
   private:
   void InitVec();
-  static const int range_max{4};
+  const int MaxActions;
   const vector<double> QValueVector;
-  double alpha = 0.1;
-  double gamma = 0.99;
-  double epsilon = 0.1;
-  int episodes = 100;
+  sf::Vector2i PreviousState;
+  double Reward;
+  double MaxQValue;
+  double alpha;
+  double gamma;
+  double epsilon;
+  int episodes;
 
 };
 

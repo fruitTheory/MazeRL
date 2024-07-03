@@ -5,8 +5,6 @@
 using std::vector;
 using std::array;
 
-array<array<double, ShapeBasics::WindowDivision>, ShapeBasics::WindowDivision> MLearning::RewardMap;
-
 void MLearning::InitVec(){
   for(auto &outer: QValueMap){
     std::fill(outer.begin(), outer.end(), QValueVector);
@@ -14,41 +12,52 @@ void MLearning::InitVec(){
 }
 
 MLearning::ActionType MLearning::RandomAction(){
-  return static_cast<ActionType>(rand() % range_max);
+  return static_cast<ActionType>(rand() % MaxActions);
 }
 
 void MLearning::Start(){
+  PreviousState = agent_pos;
   ActionType Action = ChooseAction();
   DoAction(Action);
-  GiveReward();
+  Reward = GetReward();
+  UpdateQValue();
 }
 
-void MLearning::GiveReward(){
+void MLearning::ResetState(){
+  Agent::agent_pos = agent_init_position;
+}
+
+void MLearning::UpdateQValue(){
+  int row = Agent::agent_pos.y;
+  int col = Agent::agent_pos.x;
+  vector<double> choice_QValues = QValueMap[row][col];
+  CalculateQValue();
+  // PrintQValueMap();
+}
+
+void MLearning::CalculateQValue(){
+}
+
+double MLearning::GetReward(){
 
   int row = Agent::agent_pos.y;
   int col = Agent::agent_pos.x;
   int map_value = Environment::map[row][col];
   
   switch(map_value){
-    case CaseType::DEFAULT:{
-      print(RewardMap[row][col] + -0.1);
-      RewardMap[row][col] += -0.1;
-      break;
+    case RewardType::DEFAULT:{
+      return -0.1;
     }
-    case CaseType::WALL:{
-      print(RewardMap[row][col] + -1);
-      RewardMap[row][col] += -1;
-      // Reset state
-      break;
+    case RewardType::WALL:{
+      ResetState();
+      return -1;
     }
-    case CaseType::GOAL:{
-      print(RewardMap[row][col] + 5);
-      RewardMap[row][col] += 5;
-      break;
+    case RewardType::GOAL:{
+      return 5;
     }
     default:
-      std::cout << "How'd you get this value." << std::endl;
-      break;
+      std::cerr << "Invalid map value, Out of Range." << std::endl;
+      throw std::out_of_range("");
   }
 }
 
@@ -58,15 +67,16 @@ MLearning::ActionType MLearning::ChooseAction(){
   int row = Agent::agent_pos.y;
   int col = Agent::agent_pos.x;
   vector<double> map_QValues = QValueMap[row][col];
-  // map_QValues[3] = 1;
 
   // Explore vs Exploit
   if(ExploreChance < epsilon){
+    // print("Explore");
     Action = RandomAction();
   }
-  else{
+  else{ 
+    // print("Exploit");
     auto maximum_value_iter = std::max_element(map_QValues.begin(), map_QValues.end());
-    int maximum_value = *maximum_value_iter;
+    MaxQValue = *maximum_value_iter;
     int iterator = std::distance(map_QValues.begin(), maximum_value_iter);
     Action = static_cast<ActionType>(iterator);
   }
@@ -74,7 +84,7 @@ MLearning::ActionType MLearning::ChooseAction(){
 }
 
 void MLearning::DoAction(ActionType type){
-  
+
   switch(type){
     case ActionType::LEFT:{
       if(Agent::agent_pos.x - 1 < 0){
@@ -114,18 +124,10 @@ void MLearning::DoAction(ActionType type){
   }
 }
 
-void MLearning::PrintChoiceMap(){
+void MLearning::PrintQValueMap(){
   int row = Agent::agent_pos.y;
   int col = Agent::agent_pos.x;
   vector<double> map_actions = QValueMap[row][col];
   map_actions[1] = 1;
   Utils::PrintVectorMap(QValueMap);
-}
-
-void MLearning::PrintRewardMap(){
-  for(const auto &row : MLearning::RewardMap){
-    for(const double &n : row){
-      std::cout << n << " " ;
-    } std::cout << std::endl;
-  }
 }
