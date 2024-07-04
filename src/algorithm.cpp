@@ -17,7 +17,7 @@ MLearning::ActionType MLearning::RandomAction(){
 
 void MLearning::Start(){
   PreviousState = agent_pos;
-  ActionType Action = ChooseAction();
+  Action = ChooseAction();
   DoAction(Action);
   Reward = GetReward();
   UpdateQValue();
@@ -28,14 +28,32 @@ void MLearning::ResetState(){
 }
 
 void MLearning::UpdateQValue(){
-  int row = Agent::agent_pos.y;
-  int col = Agent::agent_pos.x;
-  vector<double> choice_QValues = QValueMap[row][col];
-  CalculateQValue();
-  // PrintQValueMap();
-}
+  int previous_y = PreviousState.y;
+  int previous_x = PreviousState.x;
+  vector<double> future_QValues = QValueMap[previous_y][previous_x];
+  
+  auto maximum_value_iter = std::max_element(future_QValues.begin(), future_QValues.end());
+  double FutureMaxQValue = *maximum_value_iter;
+  Utils::print_vector(future_QValues);
 
-void MLearning::CalculateQValue(){
+  int current_y = Agent::agent_pos.y;
+  int current_x = Agent::agent_pos.x;
+  vector<double> current_QValues = QValueMap[current_y][current_x];
+
+  double discount_future = FutureMaxQValue*gamma;
+
+  print(discount_future);
+
+  double expected_value = discount_future+Reward;
+
+  print(expected_value);
+
+  double difference = expected_value-current_QValues[Action];
+
+  print(difference);
+
+  QValueMap[previous_y][previous_x][Action] = current_QValues[Action]+(alpha*difference);
+
 }
 
 double MLearning::GetReward(){
@@ -46,14 +64,15 @@ double MLearning::GetReward(){
   
   switch(map_value){
     case RewardType::DEFAULT:{
-      return -0.1;
+      return -1;
     }
     case RewardType::WALL:{
       ResetState();
-      return -1;
+      return -5;
     }
     case RewardType::GOAL:{
-      return 5;
+      ResetState();
+      return 100;
     }
     default:
       std::cerr << "Invalid map value, Out of Range." << std::endl;
@@ -70,11 +89,9 @@ MLearning::ActionType MLearning::ChooseAction(){
 
   // Explore vs Exploit
   if(ExploreChance < epsilon){
-    // print("Explore");
     Action = RandomAction();
   }
   else{ 
-    // print("Exploit");
     auto maximum_value_iter = std::max_element(map_QValues.begin(), map_QValues.end());
     MaxQValue = *maximum_value_iter;
     int iterator = std::distance(map_QValues.begin(), maximum_value_iter);
@@ -83,7 +100,7 @@ MLearning::ActionType MLearning::ChooseAction(){
   return Action;
 }
 
-void MLearning::DoAction(ActionType type){
+void MLearning::DoAction(const ActionType &type){
 
   switch(type){
     case ActionType::LEFT:{

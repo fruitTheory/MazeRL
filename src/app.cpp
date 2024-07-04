@@ -25,6 +25,6 @@ void App::Render(){
 
   window.display();
 
-  sf::sleep(sf::seconds(1));
+  sf::sleep(sf::seconds(0.1));
 
 }

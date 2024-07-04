@@ -20,7 +20,7 @@ class MLearning: public Agent{
   MaxQValue{0},
   alpha{0.1},
   gamma{0.99},
-  epsilon{0.9},
+  epsilon{0.025},
   episodes{100}
   {
       InitVec();
@@ -35,7 +35,7 @@ class MLearning: public Agent{
   double GetReward();
   void UpdateQValue();
   ActionType ChooseAction();
-  void DoAction(ActionType type);
+  void DoAction(const ActionType &type);
   void PrintQValueMap();
   void CalculateQValue();
 
@@ -46,6 +46,7 @@ class MLearning: public Agent{
   private:
   void InitVec();
   const int MaxActions;
+  ActionType Action{LEFT};
   const vector<double> QValueVector;
   sf::Vector2i PreviousState;
   double Reward;

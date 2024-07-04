@@ -48,7 +48,6 @@ void Environment::draw_map(RenderWindow &window){
 
 void Agent::draw_agent(RenderWindow &window){
   Vector2i screen_position = convert_position(agent_pos, square);
-  print(agent_pos.x + agent_pos.y);
   square.setFillColor(agent_color);
   square.setPosition(screen_position.x, screen_position.y);
   window.draw(square);
