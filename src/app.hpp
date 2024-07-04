@@ -10,7 +10,7 @@ using namespace WindowBasics;
 class App{
 
   public:
-  App(): window(sf::VideoMode(WINDOW_SIZE, WINDOW_SIZE), "SFML window")
+  App(): window(sf::VideoMode(WINDOW_SIZE, WINDOW_SIZE), "Learning")
   {
 
   }
