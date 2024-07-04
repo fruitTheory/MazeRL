@@ -8,20 +8,20 @@ using std::array;
 using namespace sf;
 using namespace WindowBasics;
 
-const sf::Vector2i Agent::agent_init_position{5,8};
+const sf::Vector2i Agent::agent_init_position{1,1};
 sf::Vector2i Agent::agent_pos = Agent::agent_init_position;
 const array<array<int, ShapeBasics::WindowDivision>, ShapeBasics::WindowDivision> Environment::map = 
 {{
-  0,0,0,0,0,0,0,1,1,1,
-  0,0,0,0,0,0,0,1,2,1,
-  0,0,0,0,0,0,1,1,0,1,
-  0,0,0,0,0,0,1,0,0,1,
-  0,0,0,0,0,1,1,0,0,1,
-  0,0,0,1,1,1,0,0,0,1,
-  0,0,0,1,0,0,0,0,1,1,
-  0,0,0,1,0,0,0,0,1,0,
-  0,0,0,1,0,0,1,1,1,0,
-  0,0,0,1,1,1,1,0,0,0,
+1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+1, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+1, 0, 1, 0, 1, 0, 1, 1, 0, 1,
+1, 0, 1, 0, 0, 0, 0, 1, 0, 1,
+1, 0, 1, 1, 1, 1, 0, 1, 0, 1,
+1, 0, 0, 0, 0, 0, 0, 1, 0, 1,
+1, 0, 1, 1, 1, 1, 1, 1, 0, 1,
+1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+1, 1, 1, 1, 1, 1, 0, 1, 2, 1,
+1, 1, 1, 1, 1, 1, 1, 1, 1, 1
 }};
 
 // Take array mapped position convert to screen based position
